@@ -9,10 +9,10 @@ import (
 )
 
 func RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {
-	legacy.RegisterAminoMsg(cdc, &MsgAddIBCRateLimit{}, "ratelimit/MsgAddIBCRateLimit")
-	legacy.RegisterAminoMsg(cdc, &MsgUpdateIBCRateLimit{}, "ratelimit/MsgUpdateIBCRateLimit")
-	legacy.RegisterAminoMsg(cdc, &MsgRemoveIBCRateLimit{}, "ratelimit/MsgRemoveIBCRateLimit")
-	legacy.RegisterAminoMsg(cdc, &MsgResetIBCRateLimit{}, "ratelimit/MsgResetIBCRateLimit")
+	legacy.RegisterAminoMsg(cdc, &MsgAddIBCRateLimit{}, "ibcratelimit/MsgAddIBCRateLimit")
+	legacy.RegisterAminoMsg(cdc, &MsgUpdateIBCRateLimit{}, "ibcratelimit/MsgUpdateIBCRateLimit")
+	legacy.RegisterAminoMsg(cdc, &MsgRemoveIBCRateLimit{}, "ibcratelimit/MsgRemoveIBCRateLimit")
+	legacy.RegisterAminoMsg(cdc, &MsgResetIBCRateLimit{}, "ibcratelimit/MsgResetIBCRateLimit")
 }
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
