@@ -1,7 +1,7 @@
 syntax = "proto3";
-package ratelimit.v1beta1;
+package ratelimit.v1;
 
-import "ratelimit/v1beta1/ratelimit.proto";
+import "ratelimit/v1/ratelimit.proto";
 import "google/api/annotations.proto";
 import "gogoproto/gogo.proto";
 
@@ -12,7 +12,7 @@ service Query {
   // Queries all rate limits
   rpc AllRateLimits(QueryAllRateLimitsRequest)
       returns (QueryAllRateLimitsResponse) {
-    option (google.api.http).get = "/int3face/ibcratelimit/v1beta1/ratelimits";
+    option (google.api.http).get = "/int3face/ibcratelimit/v1/ratelimits";
   }
 
   // Queries a specific rate limit by channel ID and denom
@@ -20,35 +20,35 @@ service Query {
   //  - /ratelimit/{channel_id}/by_denom?denom={denom}
   rpc RateLimit(QueryRateLimitRequest) returns (QueryRateLimitResponse) {
     option (google.api.http).get =
-        "/int3face/ibcratelimit/v1beta1/ratelimit/{channel_id}/by_denom";
+        "/int3face/ibcratelimit/v1/ratelimit/{channel_id}/by_denom";
   }
 
   // Queries all the rate limits for a given chain
   rpc RateLimitsByChainId(QueryRateLimitsByChainIdRequest)
       returns (QueryRateLimitsByChainIdResponse) {
     option (google.api.http).get =
-        "/int3face/ibcratelimit/v1beta1/ratelimits/{chain_id}";
+        "/int3face/ibcratelimit/v1/ratelimits/{chain_id}";
   }
 
   // Queries all the rate limits for a given channel ID
   rpc RateLimitsByChannelId(QueryRateLimitsByChannelIdRequest)
       returns (QueryRateLimitsByChannelIdResponse) {
     option (google.api.http).get =
-        "/int3face/ibcratelimit/v1beta1/ratelimits/{channel_id}";
+        "/int3face/ibcratelimit/v1/ratelimits/{channel_id}";
   }
 
   // Queries all blacklisted denoms
   rpc AllBlacklistedDenoms(QueryAllBlacklistedDenomsRequest)
       returns (QueryAllBlacklistedDenomsResponse) {
     option (google.api.http).get =
-        "/int3face/ibcratelimit/v1beta1/blacklisted_denoms";
+        "/int3face/ibcratelimit/v1/blacklisted_denoms";
   }
 
   // Queries all whitelisted address pairs
   rpc AllWhitelistedAddresses(QueryAllWhitelistedAddressesRequest)
       returns (QueryAllWhitelistedAddressesResponse) {
     option (google.api.http).get =
-        "/int3face/ibcratelimit/v1beta1/whitelisted_addresses";
+        "/int3face/ibcratelimit/v1/whitelisted_addresses";
   }
 }
 

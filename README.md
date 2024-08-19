@@ -364,20 +364,20 @@ RemoveRateLimit()
 //   CLI:
 //      binaryd q ibcratelimit list
 //   API:
-//      /int3face/ibcratelimit/v1beta1/ratelimits
+//      /int3face/ibcratelimit/v1/ratelimits
 QueryRateLimits()
 
 // Queries a specific rate limit given a ChannelID and Denom
 //   CLI:
 //      binaryd q ibcratelimit get [denom] [channel-id]
 //   API:
-//      /int3face/ibcratelimit/v1beta1/ratelimit/{denom}/{channel_id}
+//      /int3face/ibcratelimit/v1/ratelimit/{denom}/{channel_id}
 QueryRateLimit(denom string, channelId string)
 
 // Queries all rate limits associated with a given host chain
 //   CLI:
 //      binaryd q ibcratelimit list-by-chain [chain-id]
 //   API:
-//      /int3face/ibcratelimit/v1beta1/ratelimits/{chain_id}
+//      /int3face/ibcratelimit/v1/ratelimits/{chain_id}
 QueryRateLimitsByChainId(chainId string)
 ```

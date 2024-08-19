@@ -1,5 +1,5 @@
 syntax = "proto3";
-package ratelimit.v1beta1;
+package ratelimit.v1;
 
 import "gogoproto/gogo.proto";
 import "amino/amino.proto";

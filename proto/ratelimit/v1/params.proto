@@ -1,5 +1,5 @@
 syntax = "proto3";
-package ratelimit.v1beta1;
+package ratelimit.v1;
 
 option go_package = "github.com/Int3facechain/ibc-rate-limiting/ratelimit/types";
 
