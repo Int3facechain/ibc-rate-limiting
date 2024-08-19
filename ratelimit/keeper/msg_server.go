@@ -22,7 +22,7 @@ func NewMsgServerImpl(keeper Keeper) types.MsgServer {
 var _ types.MsgServer = msgServer{}
 
 // Adds a new rate limit. Fails if the rate limit already exists or the channel value is 0
-func (k msgServer) AddRateLimit(goCtx context.Context, msg *types.MsgAddRateLimit) (*types.MsgAddRateLimitResponse, error) {
+func (k msgServer) AddIBCRateLimit(goCtx context.Context, msg *types.MsgAddIBCRateLimit) (*types.MsgAddIBCRateLimitResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	if k.authority != msg.Authority {
 		return nil, errorsmod.Wrapf(govtypes.ErrInvalidSigner, "invalid authority; expected %s, got %s", k.authority, msg.Authority)
@@ -32,11 +32,11 @@ func (k msgServer) AddRateLimit(goCtx context.Context, msg *types.MsgAddRateLimi
 		return nil, err
 	}
 
-	return &types.MsgAddRateLimitResponse{}, nil
+	return &types.MsgAddIBCRateLimitResponse{}, nil
 }
 
 // Updates an existing rate limit. Fails if the rate limit doesn't exist
-func (k msgServer) UpdateRateLimit(goCtx context.Context, msg *types.MsgUpdateRateLimit) (*types.MsgUpdateRateLimitResponse, error) {
+func (k msgServer) UpdateIBCRateLimit(goCtx context.Context, msg *types.MsgUpdateIBCRateLimit) (*types.MsgUpdateIBCRateLimitResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	if k.authority != msg.Authority {
 		return nil, errorsmod.Wrapf(govtypes.ErrInvalidSigner, "invalid authority; expected %s, got %s", k.authority, msg.Authority)
@@ -46,11 +46,11 @@ func (k msgServer) UpdateRateLimit(goCtx context.Context, msg *types.MsgUpdateRa
 		return nil, err
 	}
 
-	return &types.MsgUpdateRateLimitResponse{}, nil
+	return &types.MsgUpdateIBCRateLimitResponse{}, nil
 }
 
 // Removes a rate limit. Fails if the rate limit doesn't exist
-func (k msgServer) RemoveRateLimit(goCtx context.Context, msg *types.MsgRemoveRateLimit) (*types.MsgRemoveRateLimitResponse, error) {
+func (k msgServer) RemoveIBCRateLimit(goCtx context.Context, msg *types.MsgRemoveIBCRateLimit) (*types.MsgRemoveIBCRateLimitResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	if k.authority != msg.Authority {
 		return nil, errorsmod.Wrapf(govtypes.ErrInvalidSigner, "invalid authority; expected %s, got %s", k.authority, msg.Authority)
@@ -62,11 +62,11 @@ func (k msgServer) RemoveRateLimit(goCtx context.Context, msg *types.MsgRemoveRa
 	}
 
 	k.Keeper.RemoveRateLimit(ctx, msg.Denom, msg.ChannelId)
-	return &types.MsgRemoveRateLimitResponse{}, nil
+	return &types.MsgRemoveIBCRateLimitResponse{}, nil
 }
 
 // Resets the flow on a rate limit. Fails if the rate limit doesn't exist
-func (k msgServer) ResetRateLimit(goCtx context.Context, msg *types.MsgResetRateLimit) (*types.MsgResetRateLimitResponse, error) {
+func (k msgServer) ResetIBCRateLimit(goCtx context.Context, msg *types.MsgResetIBCRateLimit) (*types.MsgResetIBCRateLimitResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	if k.authority != msg.Authority {
 		return nil, errorsmod.Wrapf(govtypes.ErrInvalidSigner, "invalid authority; expected %s, got %s", k.authority, msg.Authority)
@@ -76,5 +76,5 @@ func (k msgServer) ResetRateLimit(goCtx context.Context, msg *types.MsgResetRate
 		return nil, err
 	}
 
-	return &types.MsgResetRateLimitResponse{}, nil
+	return &types.MsgResetIBCRateLimitResponse{}, nil
 }

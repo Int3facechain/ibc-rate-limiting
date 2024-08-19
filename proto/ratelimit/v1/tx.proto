@@ -11,19 +11,22 @@ option go_package = "github.com/Int3facechain/ibc-rate-limiting/ratelimit/types"
 // Msg service for rate limit txs
 service Msg {
   // Gov tx to add a new rate limit
-  rpc AddRateLimit(MsgAddRateLimit) returns (MsgAddRateLimitResponse);
+  rpc AddIBCRateLimit(MsgAddIBCRateLimit) returns (MsgAddIBCRateLimitResponse);
   // Gov tx to update an existing rate limit
-  rpc UpdateRateLimit(MsgUpdateRateLimit) returns (MsgUpdateRateLimitResponse);
+  rpc UpdateIBCRateLimit(MsgUpdateIBCRateLimit)
+      returns (MsgUpdateIBCRateLimitResponse);
   // Gov tx to remove a rate limit
-  rpc RemoveRateLimit(MsgRemoveRateLimit) returns (MsgRemoveRateLimitResponse);
+  rpc RemoveIBCRateLimit(MsgRemoveIBCRateLimit)
+      returns (MsgRemoveIBCRateLimitResponse);
   // Gov tx to reset the flow on a rate limit
-  rpc ResetRateLimit(MsgResetRateLimit) returns (MsgResetRateLimitResponse);
+  rpc ResetIBCRateLimit(MsgResetIBCRateLimit)
+      returns (MsgResetIBCRateLimitResponse);
 }
 
 // Gov tx to add a new rate limit
-message MsgAddRateLimit {
+message MsgAddIBCRateLimit {
   option (cosmos.msg.v1.signer) = "authority";
-  option (amino.name) = "ibcratelimit/MsgAddRateLimit";
+  option (amino.name) = "ibcratelimit/MsgAddIBCRateLimit";
 
   // Authority defines the x/gov module account
   string authority = 1 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
@@ -48,12 +51,12 @@ message MsgAddRateLimit {
   // is reset (e.g. 24 indicates that the rate limit is reset each day)
   uint64 duration_hours = 6;
 }
-message MsgAddRateLimitResponse {}
+message MsgAddIBCRateLimitResponse {}
 
 // Gov tx to update an existing rate limit
-message MsgUpdateRateLimit {
+message MsgUpdateIBCRateLimit {
   option (cosmos.msg.v1.signer) = "authority";
-  option (amino.name) = "ibcratelimit/MsgUpdateRateLimit";
+  option (amino.name) = "ibcratelimit/MsgUpdateIBCRateLimit";
 
   // Authority defines the x/gov module account
   string authority = 1 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
@@ -78,12 +81,12 @@ message MsgUpdateRateLimit {
   // is reset (e.g. 24 indicates that the rate limit is reset each day)
   uint64 duration_hours = 6;
 }
-message MsgUpdateRateLimitResponse {}
+message MsgUpdateIBCRateLimitResponse {}
 
 // Gov tx to remove a rate limit
-message MsgRemoveRateLimit {
+message MsgRemoveIBCRateLimit {
   option (cosmos.msg.v1.signer) = "authority";
-  option (amino.name) = "ibcratelimit/MsgRemoveRateLimit";
+  option (amino.name) = "ibcratelimit/MsgRemoveIBCRateLimit";
 
   // Authority defines the x/gov module account
   string authority = 1 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
@@ -93,12 +96,12 @@ message MsgRemoveRateLimit {
   // ChannelId for the rate limit, on the side of the rate limited chain
   string channel_id = 3;
 }
-message MsgRemoveRateLimitResponse {}
+message MsgRemoveIBCRateLimitResponse {}
 
 // Gov tx to reset the flow on a rate limit
-message MsgResetRateLimit {
+message MsgResetIBCRateLimit {
   option (cosmos.msg.v1.signer) = "authority";
-  option (amino.name) = "ibcratelimit/MsgResetRateLimit";
+  option (amino.name) = "ibcratelimit/MsgResetIBCRateLimit";
 
   // Authority defines the x/gov module account
   string authority = 1 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
@@ -108,4 +111,4 @@ message MsgResetRateLimit {
   // ChannelId for the rate limit, on the side of the rate limited chain
   string channel_id = 3;
 }
-message MsgResetRateLimitResponse {}
+message MsgResetIBCRateLimitResponse {}

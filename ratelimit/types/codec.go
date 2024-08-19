@@ -9,18 +9,18 @@ import (
 )
 
 func RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {
-	legacy.RegisterAminoMsg(cdc, &MsgAddRateLimit{}, "ratelimit/MsgAddRateLimit")
-	legacy.RegisterAminoMsg(cdc, &MsgUpdateRateLimit{}, "ratelimit/MsgUpdateRateLimit")
-	legacy.RegisterAminoMsg(cdc, &MsgRemoveRateLimit{}, "ratelimit/MsgRemoveRateLimit")
-	legacy.RegisterAminoMsg(cdc, &MsgResetRateLimit{}, "ratelimit/MsgResetRateLimit")
+	legacy.RegisterAminoMsg(cdc, &MsgAddIBCRateLimit{}, "ratelimit/MsgAddIBCRateLimit")
+	legacy.RegisterAminoMsg(cdc, &MsgUpdateIBCRateLimit{}, "ratelimit/MsgUpdateIBCRateLimit")
+	legacy.RegisterAminoMsg(cdc, &MsgRemoveIBCRateLimit{}, "ratelimit/MsgRemoveIBCRateLimit")
+	legacy.RegisterAminoMsg(cdc, &MsgResetIBCRateLimit{}, "ratelimit/MsgResetIBCRateLimit")
 }
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgAddRateLimit{},
-		&MsgUpdateRateLimit{},
-		&MsgRemoveRateLimit{},
-		&MsgResetRateLimit{},
+		&MsgAddIBCRateLimit{},
+		&MsgUpdateIBCRateLimit{},
+		&MsgRemoveIBCRateLimit{},
+		&MsgResetIBCRateLimit{},
 	)
 	msgservice.RegisterMsgServiceDesc(registry, &_Msg_serviceDesc)
 }

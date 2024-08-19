@@ -11,31 +11,31 @@ import (
 )
 
 const (
-	TypeMsgAddRateLimit    = "AddRateLimit"
-	TypeMsgUpdateRateLimit = "UpdateRateLimit"
-	TypeMsgRemoveRateLimit = "RemoveRateLimit"
-	TypeMsgResetRateLimit  = "ResetRateLimit"
+	TypeMsgAddIBCRateLimit    = "AddRateLimit"
+	TypeMsgUpdateIBCRateLimit = "UpdateRateLimit"
+	TypeMsgRemoveIBCRateLimit = "RemoveRateLimit"
+	TypeMsgResetIBCRateLimit  = "ResetRateLimit"
 )
 
 var (
-	_ sdk.Msg = &MsgAddRateLimit{}
-	_ sdk.Msg = &MsgUpdateRateLimit{}
-	_ sdk.Msg = &MsgRemoveRateLimit{}
-	_ sdk.Msg = &MsgResetRateLimit{}
+	_ sdk.Msg = &MsgAddIBCRateLimit{}
+	_ sdk.Msg = &MsgUpdateIBCRateLimit{}
+	_ sdk.Msg = &MsgRemoveIBCRateLimit{}
+	_ sdk.Msg = &MsgResetIBCRateLimit{}
 
 	// Implement legacy interface for ledger support
-	_ legacytx.LegacyMsg = &MsgAddRateLimit{}
-	_ legacytx.LegacyMsg = &MsgUpdateRateLimit{}
-	_ legacytx.LegacyMsg = &MsgRemoveRateLimit{}
-	_ legacytx.LegacyMsg = &MsgResetRateLimit{}
+	_ legacytx.LegacyMsg = &MsgAddIBCRateLimit{}
+	_ legacytx.LegacyMsg = &MsgUpdateIBCRateLimit{}
+	_ legacytx.LegacyMsg = &MsgRemoveIBCRateLimit{}
+	_ legacytx.LegacyMsg = &MsgResetIBCRateLimit{}
 )
 
 // ----------------------------------------------
-//               MsgAddRateLimit
+//               MsgAddIBCRateLimit
 // ----------------------------------------------
 
-func NewMsgAddRateLimit(denom, channelId string, maxPercentSend sdkmath.Int, maxPercentRecv sdkmath.Int, durationHours uint64) *MsgAddRateLimit {
-	return &MsgAddRateLimit{
+func NewMsgAddIBCRateLimit(denom, channelId string, maxPercentSend sdkmath.Int, maxPercentRecv sdkmath.Int, durationHours uint64) *MsgAddIBCRateLimit {
+	return &MsgAddIBCRateLimit{
 		Denom:          denom,
 		ChannelId:      channelId,
 		MaxPercentSend: maxPercentSend,
@@ -44,15 +44,15 @@ func NewMsgAddRateLimit(denom, channelId string, maxPercentSend sdkmath.Int, max
 	}
 }
 
-func (msg MsgAddRateLimit) Type() string {
-	return TypeMsgAddRateLimit
+func (msg MsgAddIBCRateLimit) Type() string {
+	return TypeMsgAddIBCRateLimit
 }
 
-func (msg MsgAddRateLimit) Route() string {
+func (msg MsgAddIBCRateLimit) Route() string {
 	return RouterKey
 }
 
-func (msg *MsgAddRateLimit) GetSigners() []sdk.AccAddress {
+func (msg *MsgAddIBCRateLimit) GetSigners() []sdk.AccAddress {
 	staker, err := sdk.AccAddressFromBech32(msg.Authority)
 	if err != nil {
 		panic(err)
@@ -60,12 +60,12 @@ func (msg *MsgAddRateLimit) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{staker}
 }
 
-func (msg *MsgAddRateLimit) GetSignBytes() []byte {
+func (msg *MsgAddIBCRateLimit) GetSignBytes() []byte {
 	bz := ModuleCdc.MustMarshalJSON(msg)
 	return sdk.MustSortJSON(bz)
 }
 
-func (msg *MsgAddRateLimit) ValidateBasic() error {
+func (msg *MsgAddIBCRateLimit) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Authority)
 	if err != nil {
 		return errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "invalid authority address (%s)", err)
@@ -107,11 +107,11 @@ func (msg *MsgAddRateLimit) ValidateBasic() error {
 }
 
 // ----------------------------------------------
-//               MsgUpdateRateLimit
+//               MsgUpdateIBCRateLimit
 // ----------------------------------------------
 
-func NewMsgUpdateRateLimit(denom, channelId string, maxPercentSend sdkmath.Int, maxPercentRecv sdkmath.Int, durationHours uint64) *MsgUpdateRateLimit {
-	return &MsgUpdateRateLimit{
+func NewMsgUpdateIBCRateLimit(denom, channelId string, maxPercentSend sdkmath.Int, maxPercentRecv sdkmath.Int, durationHours uint64) *MsgUpdateIBCRateLimit {
+	return &MsgUpdateIBCRateLimit{
 		Denom:          denom,
 		ChannelId:      channelId,
 		MaxPercentSend: maxPercentSend,
@@ -120,15 +120,15 @@ func NewMsgUpdateRateLimit(denom, channelId string, maxPercentSend sdkmath.Int, 
 	}
 }
 
-func (msg MsgUpdateRateLimit) Type() string {
-	return TypeMsgUpdateRateLimit
+func (msg MsgUpdateIBCRateLimit) Type() string {
+	return TypeMsgUpdateIBCRateLimit
 }
 
-func (msg MsgUpdateRateLimit) Route() string {
+func (msg MsgUpdateIBCRateLimit) Route() string {
 	return RouterKey
 }
 
-func (msg *MsgUpdateRateLimit) GetSigners() []sdk.AccAddress {
+func (msg *MsgUpdateIBCRateLimit) GetSigners() []sdk.AccAddress {
 	staker, err := sdk.AccAddressFromBech32(msg.Authority)
 	if err != nil {
 		panic(err)
@@ -136,12 +136,12 @@ func (msg *MsgUpdateRateLimit) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{staker}
 }
 
-func (msg *MsgUpdateRateLimit) GetSignBytes() []byte {
+func (msg *MsgUpdateIBCRateLimit) GetSignBytes() []byte {
 	bz := ModuleCdc.MustMarshalJSON(msg)
 	return sdk.MustSortJSON(bz)
 }
 
-func (msg *MsgUpdateRateLimit) ValidateBasic() error {
+func (msg *MsgUpdateIBCRateLimit) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Authority)
 	if err != nil {
 		return errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "invalid authority address (%s)", err)
@@ -183,25 +183,25 @@ func (msg *MsgUpdateRateLimit) ValidateBasic() error {
 }
 
 // ----------------------------------------------
-//               MsgRemoveRateLimit
+//               MsgRemoveIBCRateLimit
 // ----------------------------------------------
 
-func NewMsgRemoveRateLimit(denom, channelId string) *MsgRemoveRateLimit {
-	return &MsgRemoveRateLimit{
+func NewMsgRemoveIBCRateLimit(denom, channelId string) *MsgRemoveIBCRateLimit {
+	return &MsgRemoveIBCRateLimit{
 		Denom:     denom,
 		ChannelId: channelId,
 	}
 }
 
-func (msg MsgRemoveRateLimit) Type() string {
-	return TypeMsgRemoveRateLimit
+func (msg MsgRemoveIBCRateLimit) Type() string {
+	return TypeMsgRemoveIBCRateLimit
 }
 
-func (msg MsgRemoveRateLimit) Route() string {
+func (msg MsgRemoveIBCRateLimit) Route() string {
 	return RouterKey
 }
 
-func (msg *MsgRemoveRateLimit) GetSigners() []sdk.AccAddress {
+func (msg *MsgRemoveIBCRateLimit) GetSigners() []sdk.AccAddress {
 	staker, err := sdk.AccAddressFromBech32(msg.Authority)
 	if err != nil {
 		panic(err)
@@ -209,12 +209,12 @@ func (msg *MsgRemoveRateLimit) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{staker}
 }
 
-func (msg *MsgRemoveRateLimit) GetSignBytes() []byte {
+func (msg *MsgRemoveIBCRateLimit) GetSignBytes() []byte {
 	bz := ModuleCdc.MustMarshalJSON(msg)
 	return sdk.MustSortJSON(bz)
 }
 
-func (msg *MsgRemoveRateLimit) ValidateBasic() error {
+func (msg *MsgRemoveIBCRateLimit) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Authority)
 	if err != nil {
 		return errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "invalid authority address (%s)", err)
@@ -237,25 +237,25 @@ func (msg *MsgRemoveRateLimit) ValidateBasic() error {
 }
 
 // ----------------------------------------------
-//               MsgResetRateLimit
+//               MsgResetIBCRateLimit
 // ----------------------------------------------
 
-func NewMsgResetRateLimit(denom, channelId string) *MsgResetRateLimit {
-	return &MsgResetRateLimit{
+func NewMsgResetIBCRateLimit(denom, channelId string) *MsgResetIBCRateLimit {
+	return &MsgResetIBCRateLimit{
 		Denom:     denom,
 		ChannelId: channelId,
 	}
 }
 
-func (msg MsgResetRateLimit) Type() string {
-	return TypeMsgResetRateLimit
+func (msg MsgResetIBCRateLimit) Type() string {
+	return TypeMsgResetIBCRateLimit
 }
 
-func (msg MsgResetRateLimit) Route() string {
+func (msg MsgResetIBCRateLimit) Route() string {
 	return RouterKey
 }
 
-func (msg *MsgResetRateLimit) GetSigners() []sdk.AccAddress {
+func (msg *MsgResetIBCRateLimit) GetSigners() []sdk.AccAddress {
 	staker, err := sdk.AccAddressFromBech32(msg.Authority)
 	if err != nil {
 		panic(err)
@@ -263,12 +263,12 @@ func (msg *MsgResetRateLimit) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{staker}
 }
 
-func (msg *MsgResetRateLimit) GetSignBytes() []byte {
+func (msg *MsgResetIBCRateLimit) GetSignBytes() []byte {
 	bz := ModuleCdc.MustMarshalJSON(msg)
 	return sdk.MustSortJSON(bz)
 }
 
-func (msg *MsgResetRateLimit) ValidateBasic() error {
+func (msg *MsgResetIBCRateLimit) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Authority)
 	if err != nil {
 		return errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "invalid authority address (%s)", err)

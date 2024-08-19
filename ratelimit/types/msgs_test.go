@@ -13,10 +13,10 @@ import (
 )
 
 // ----------------------------------------------
-//               MsgAddRateLimit
+//               MsgAddIBCRateLimit
 // ----------------------------------------------
 
-func TestMsgAddRateLimit(t *testing.T) {
+func TestMsgAddIBCRateLimit(t *testing.T) {
 	apptesting.SetupConfig()
 
 	validAuthority := authtypes.NewModuleAddress(govtypes.ModuleName).String()
@@ -28,12 +28,12 @@ func TestMsgAddRateLimit(t *testing.T) {
 
 	testCases := []struct {
 		name string
-		msg  types.MsgAddRateLimit
+		msg  types.MsgAddIBCRateLimit
 		err  string
 	}{
 		{
 			name: "successful proposal",
-			msg: types.MsgAddRateLimit{
+			msg: types.MsgAddIBCRateLimit{
 				Authority:      validAuthority,
 				Denom:          validDenom,
 				ChannelId:      validChannelId,
@@ -44,7 +44,7 @@ func TestMsgAddRateLimit(t *testing.T) {
 		},
 		{
 			name: "invalid authority",
-			msg: types.MsgAddRateLimit{
+			msg: types.MsgAddIBCRateLimit{
 				Authority:      "invalid_address",
 				Denom:          validDenom,
 				ChannelId:      validChannelId,
@@ -56,7 +56,7 @@ func TestMsgAddRateLimit(t *testing.T) {
 		},
 		{
 			name: "invalid denom",
-			msg: types.MsgAddRateLimit{
+			msg: types.MsgAddIBCRateLimit{
 				Authority:      validAuthority,
 				Denom:          "",
 				ChannelId:      validChannelId,
@@ -68,7 +68,7 @@ func TestMsgAddRateLimit(t *testing.T) {
 		},
 		{
 			name: "invalid channel-id",
-			msg: types.MsgAddRateLimit{
+			msg: types.MsgAddIBCRateLimit{
 				Authority:      validAuthority,
 				Denom:          validDenom,
 				ChannelId:      "channel-",
@@ -80,7 +80,7 @@ func TestMsgAddRateLimit(t *testing.T) {
 		},
 		{
 			name: "invalid send percent (lt 0)",
-			msg: types.MsgAddRateLimit{
+			msg: types.MsgAddIBCRateLimit{
 				Authority:      validAuthority,
 				Denom:          validDenom,
 				ChannelId:      validChannelId,
@@ -92,7 +92,7 @@ func TestMsgAddRateLimit(t *testing.T) {
 		},
 		{
 			name: "invalid send percent (gt 100)",
-			msg: types.MsgAddRateLimit{
+			msg: types.MsgAddIBCRateLimit{
 				Authority:      validAuthority,
 				Denom:          validDenom,
 				ChannelId:      validChannelId,
@@ -104,7 +104,7 @@ func TestMsgAddRateLimit(t *testing.T) {
 		},
 		{
 			name: "invalid receive percent (lt 0)",
-			msg: types.MsgAddRateLimit{
+			msg: types.MsgAddIBCRateLimit{
 				Authority:      validAuthority,
 				Denom:          validDenom,
 				ChannelId:      validChannelId,
@@ -116,7 +116,7 @@ func TestMsgAddRateLimit(t *testing.T) {
 		},
 		{
 			name: "invalid receive percent (gt 100)",
-			msg: types.MsgAddRateLimit{
+			msg: types.MsgAddIBCRateLimit{
 				Authority:      validAuthority,
 				Denom:          validDenom,
 				ChannelId:      validChannelId,
@@ -128,7 +128,7 @@ func TestMsgAddRateLimit(t *testing.T) {
 		},
 		{
 			name: "invalid send and receive percent",
-			msg: types.MsgAddRateLimit{
+			msg: types.MsgAddIBCRateLimit{
 				Authority:      validAuthority,
 				Denom:          validDenom,
 				ChannelId:      validChannelId,
@@ -140,7 +140,7 @@ func TestMsgAddRateLimit(t *testing.T) {
 		},
 		{
 			name: "invalid duration",
-			msg: types.MsgAddRateLimit{
+			msg: types.MsgAddIBCRateLimit{
 				Authority:      validAuthority,
 				Denom:          validDenom,
 				ChannelId:      validChannelId,
@@ -162,7 +162,7 @@ func TestMsgAddRateLimit(t *testing.T) {
 				require.Equal(t, tc.msg.MaxPercentRecv, validMaxPercentRecv, "maxPercentRecv")
 				require.Equal(t, tc.msg.DurationHours, validDurationHours, "durationHours")
 
-				require.Equal(t, tc.msg.Type(), types.TypeMsgAddRateLimit, "type")
+				require.Equal(t, tc.msg.Type(), types.TypeMsgAddIBCRateLimit, "type")
 				require.Equal(t, tc.msg.Route(), types.ModuleName, "route")
 			} else {
 				require.ErrorContains(t, tc.msg.ValidateBasic(), tc.err, "test: %v", tc.name)
@@ -172,10 +172,10 @@ func TestMsgAddRateLimit(t *testing.T) {
 }
 
 // ----------------------------------------------
-//               MsgUpdateRateLimit
+//               MsgUpdateIBCRateLimit
 // ----------------------------------------------
 
-func TestMsgUpdateRateLimit(t *testing.T) {
+func TestMsgUpdateIBCRateLimit(t *testing.T) {
 	apptesting.SetupConfig()
 
 	validAuthority := authtypes.NewModuleAddress(govtypes.ModuleName).String()
@@ -187,12 +187,12 @@ func TestMsgUpdateRateLimit(t *testing.T) {
 
 	testCases := []struct {
 		name string
-		msg  types.MsgUpdateRateLimit
+		msg  types.MsgUpdateIBCRateLimit
 		err  string
 	}{
 		{
 			name: "successful proposal",
-			msg: types.MsgUpdateRateLimit{
+			msg: types.MsgUpdateIBCRateLimit{
 				Authority:      validAuthority,
 				Denom:          validDenom,
 				ChannelId:      validChannelId,
@@ -203,7 +203,7 @@ func TestMsgUpdateRateLimit(t *testing.T) {
 		},
 		{
 			name: "invalid authority",
-			msg: types.MsgUpdateRateLimit{
+			msg: types.MsgUpdateIBCRateLimit{
 				Authority:      "invalid_address",
 				Denom:          validDenom,
 				ChannelId:      validChannelId,
@@ -215,7 +215,7 @@ func TestMsgUpdateRateLimit(t *testing.T) {
 		},
 		{
 			name: "invalid denom",
-			msg: types.MsgUpdateRateLimit{
+			msg: types.MsgUpdateIBCRateLimit{
 				Authority:      validAuthority,
 				Denom:          "",
 				ChannelId:      validChannelId,
@@ -227,7 +227,7 @@ func TestMsgUpdateRateLimit(t *testing.T) {
 		},
 		{
 			name: "invalid channel-id",
-			msg: types.MsgUpdateRateLimit{
+			msg: types.MsgUpdateIBCRateLimit{
 				Authority:      validAuthority,
 				Denom:          validDenom,
 				ChannelId:      "channel-",
@@ -239,7 +239,7 @@ func TestMsgUpdateRateLimit(t *testing.T) {
 		},
 		{
 			name: "invalid send percent (lt 0)",
-			msg: types.MsgUpdateRateLimit{
+			msg: types.MsgUpdateIBCRateLimit{
 				Authority:      validAuthority,
 				Denom:          validDenom,
 				ChannelId:      validChannelId,
@@ -251,7 +251,7 @@ func TestMsgUpdateRateLimit(t *testing.T) {
 		},
 		{
 			name: "invalid send percent (gt 100)",
-			msg: types.MsgUpdateRateLimit{
+			msg: types.MsgUpdateIBCRateLimit{
 				Authority:      validAuthority,
 				Denom:          validDenom,
 				ChannelId:      validChannelId,
@@ -263,7 +263,7 @@ func TestMsgUpdateRateLimit(t *testing.T) {
 		},
 		{
 			name: "invalid receive percent (lt 0)",
-			msg: types.MsgUpdateRateLimit{
+			msg: types.MsgUpdateIBCRateLimit{
 				Authority:      validAuthority,
 				Denom:          validDenom,
 				ChannelId:      validChannelId,
@@ -275,7 +275,7 @@ func TestMsgUpdateRateLimit(t *testing.T) {
 		},
 		{
 			name: "invalid receive percent (gt 100)",
-			msg: types.MsgUpdateRateLimit{
+			msg: types.MsgUpdateIBCRateLimit{
 				Authority:      validAuthority,
 				Denom:          validDenom,
 				ChannelId:      validChannelId,
@@ -287,7 +287,7 @@ func TestMsgUpdateRateLimit(t *testing.T) {
 		},
 		{
 			name: "invalid send and receive percent",
-			msg: types.MsgUpdateRateLimit{
+			msg: types.MsgUpdateIBCRateLimit{
 				Authority:      validAuthority,
 				Denom:          validDenom,
 				ChannelId:      validChannelId,
@@ -299,7 +299,7 @@ func TestMsgUpdateRateLimit(t *testing.T) {
 		},
 		{
 			name: "invalid duration",
-			msg: types.MsgUpdateRateLimit{
+			msg: types.MsgUpdateIBCRateLimit{
 				Authority:      validAuthority,
 				Denom:          validDenom,
 				ChannelId:      validChannelId,
@@ -321,7 +321,7 @@ func TestMsgUpdateRateLimit(t *testing.T) {
 				require.Equal(t, tc.msg.MaxPercentRecv, validMaxPercentRecv, "maxPercentRecv")
 				require.Equal(t, tc.msg.DurationHours, validDurationHours, "durationHours")
 
-				require.Equal(t, tc.msg.Type(), types.TypeMsgUpdateRateLimit, "type")
+				require.Equal(t, tc.msg.Type(), types.TypeMsgUpdateIBCRateLimit, "type")
 				require.Equal(t, tc.msg.Route(), types.ModuleName, "route")
 			} else {
 				require.ErrorContains(t, tc.msg.ValidateBasic(), tc.err, "test: %v", tc.name)
@@ -331,10 +331,10 @@ func TestMsgUpdateRateLimit(t *testing.T) {
 }
 
 // ----------------------------------------------
-//               MsgRemoveRateLimit
+//               MsgRemoveIBCRateLimit
 // ----------------------------------------------
 
-func TestMsgRemoveRateLimit(t *testing.T) {
+func TestMsgRemoveIBCRateLimit(t *testing.T) {
 	apptesting.SetupConfig()
 
 	validAuthority := authtypes.NewModuleAddress(govtypes.ModuleName).String()
@@ -343,12 +343,12 @@ func TestMsgRemoveRateLimit(t *testing.T) {
 
 	testCases := []struct {
 		name string
-		msg  types.MsgRemoveRateLimit
+		msg  types.MsgRemoveIBCRateLimit
 		err  string
 	}{
 		{
 			name: "successful message",
-			msg: types.MsgRemoveRateLimit{
+			msg: types.MsgRemoveIBCRateLimit{
 				Authority: validAuthority,
 				Denom:     validDenom,
 				ChannelId: validChannelId,
@@ -356,7 +356,7 @@ func TestMsgRemoveRateLimit(t *testing.T) {
 		},
 		{
 			name: "invalid authority",
-			msg: types.MsgRemoveRateLimit{
+			msg: types.MsgRemoveIBCRateLimit{
 				Authority: "invalid_address",
 				Denom:     validDenom,
 				ChannelId: validChannelId,
@@ -365,7 +365,7 @@ func TestMsgRemoveRateLimit(t *testing.T) {
 		},
 		{
 			name: "invalid denom",
-			msg: types.MsgRemoveRateLimit{
+			msg: types.MsgRemoveIBCRateLimit{
 				Authority: validAuthority,
 				Denom:     "",
 				ChannelId: validChannelId,
@@ -374,7 +374,7 @@ func TestMsgRemoveRateLimit(t *testing.T) {
 		},
 		{
 			name: "invalid channel-id",
-			msg: types.MsgRemoveRateLimit{
+			msg: types.MsgRemoveIBCRateLimit{
 				Authority: validAuthority,
 				Denom:     validDenom,
 				ChannelId: "chan-1",
@@ -390,7 +390,7 @@ func TestMsgRemoveRateLimit(t *testing.T) {
 				require.Equal(t, tc.msg.Denom, validDenom, "denom")
 				require.Equal(t, tc.msg.ChannelId, validChannelId, "channelId")
 
-				require.Equal(t, tc.msg.Type(), types.TypeMsgRemoveRateLimit, "type")
+				require.Equal(t, tc.msg.Type(), types.TypeMsgRemoveIBCRateLimit, "type")
 				require.Equal(t, tc.msg.Route(), types.ModuleName, "route")
 			} else {
 				require.ErrorContains(t, tc.msg.ValidateBasic(), tc.err, "test: %v", tc.name)
@@ -400,10 +400,10 @@ func TestMsgRemoveRateLimit(t *testing.T) {
 }
 
 // ----------------------------------------------
-//               MsgResetRateLimit
+//               MsgResetIBCRateLimit
 // ----------------------------------------------
 
-func TestMsgResetRateLimit(t *testing.T) {
+func TestMsgResetIBCRateLimit(t *testing.T) {
 	apptesting.SetupConfig()
 
 	validAuthority := authtypes.NewModuleAddress(govtypes.ModuleName).String()
@@ -412,12 +412,12 @@ func TestMsgResetRateLimit(t *testing.T) {
 
 	testCases := []struct {
 		name string
-		msg  types.MsgResetRateLimit
+		msg  types.MsgResetIBCRateLimit
 		err  string
 	}{
 		{
 			name: "successful message",
-			msg: types.MsgResetRateLimit{
+			msg: types.MsgResetIBCRateLimit{
 				Authority: validAuthority,
 				Denom:     validDenom,
 				ChannelId: validChannelId,
@@ -425,7 +425,7 @@ func TestMsgResetRateLimit(t *testing.T) {
 		},
 		{
 			name: "invalid authority",
-			msg: types.MsgResetRateLimit{
+			msg: types.MsgResetIBCRateLimit{
 				Authority: "invalid_address",
 				Denom:     validDenom,
 				ChannelId: validChannelId,
@@ -434,7 +434,7 @@ func TestMsgResetRateLimit(t *testing.T) {
 		},
 		{
 			name: "invalid denom",
-			msg: types.MsgResetRateLimit{
+			msg: types.MsgResetIBCRateLimit{
 				Authority: validAuthority,
 				Denom:     "",
 				ChannelId: validChannelId,
@@ -443,7 +443,7 @@ func TestMsgResetRateLimit(t *testing.T) {
 		},
 		{
 			name: "invalid channel-id",
-			msg: types.MsgResetRateLimit{
+			msg: types.MsgResetIBCRateLimit{
 				Authority: validAuthority,
 				Denom:     validDenom,
 				ChannelId: "chan-1",
@@ -459,7 +459,7 @@ func TestMsgResetRateLimit(t *testing.T) {
 				require.Equal(t, tc.msg.Denom, validDenom, "denom")
 				require.Equal(t, tc.msg.ChannelId, validChannelId, "channelId")
 
-				require.Equal(t, tc.msg.Type(), types.TypeMsgResetRateLimit, "type")
+				require.Equal(t, tc.msg.Type(), types.TypeMsgResetIBCRateLimit, "type")
 				require.Equal(t, tc.msg.Route(), types.ModuleName, "route")
 			} else {
 				require.ErrorContains(t, tc.msg.ValidateBasic(), tc.err, "test: %v", tc.name)

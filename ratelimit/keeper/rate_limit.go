@@ -60,7 +60,7 @@ func (k Keeper) GetAllRateLimits(ctx sdk.Context) []types.RateLimit {
 }
 
 // Adds a new rate limit. Fails if the rate limit already exists or the channel value is 0
-func (k Keeper) AddRateLimit(ctx sdk.Context, msg *types.MsgAddRateLimit) error {
+func (k Keeper) AddRateLimit(ctx sdk.Context, msg *types.MsgAddIBCRateLimit) error {
 	// Confirm the channel value is not zero
 	channelValue := k.GetChannelValue(ctx, msg.Denom)
 	if channelValue.IsZero() {
@@ -105,7 +105,7 @@ func (k Keeper) AddRateLimit(ctx sdk.Context, msg *types.MsgAddRateLimit) error 
 }
 
 // Updates an existing rate limit. Fails if the rate limit doesn't exist
-func (k Keeper) UpdateRateLimit(ctx sdk.Context, msg *types.MsgUpdateRateLimit) error {
+func (k Keeper) UpdateRateLimit(ctx sdk.Context, msg *types.MsgUpdateIBCRateLimit) error {
 	// Confirm the rate limit exists
 	_, found := k.GetRateLimit(ctx, msg.Denom, msg.ChannelId)
 	if !found {
