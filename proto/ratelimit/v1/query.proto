@@ -5,51 +5,50 @@ import "ratelimit/v1/ratelimit.proto";
 import "google/api/annotations.proto";
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/Stride-Labs/ibc-rate-limiting/ratelimit/types";
+option go_package = "github.com/Int3facechain/ibc-rate-limiting/ratelimit/types";
 
 // Query defines the gRPC querier service.
 service Query {
   // Queries all rate limits
   rpc AllRateLimits(QueryAllRateLimitsRequest)
       returns (QueryAllRateLimitsResponse) {
-    option (google.api.http).get =
-        "/Stride-Labs/ibc-rate-limiting/ratelimit/ratelimits";
+    option (google.api.http).get = "/int3face/ibcratelimit/v1/ratelimits";
   }
 
   // Queries a specific rate limit by channel ID and denom
   // Ex:
   //  - /ratelimit/{channel_id}/by_denom?denom={denom}
   rpc RateLimit(QueryRateLimitRequest) returns (QueryRateLimitResponse) {
-    option (google.api.http).get = "/Stride-Labs/ibc-rate-limiting/ratelimit/"
-                                   "ratelimit/{channel_id}/by_denom";
+    option (google.api.http).get =
+        "/int3face/ibcratelimit/v1/ratelimit/{channel_id}/by_denom";
   }
 
   // Queries all the rate limits for a given chain
   rpc RateLimitsByChainId(QueryRateLimitsByChainIdRequest)
       returns (QueryRateLimitsByChainIdResponse) {
     option (google.api.http).get =
-        "/Stride-Labs/ibc-rate-limiting/ratelimit/ratelimits/{chain_id}";
+        "/int3face/ibcratelimit/v1/ratelimits/{chain_id}";
   }
 
   // Queries all the rate limits for a given channel ID
   rpc RateLimitsByChannelId(QueryRateLimitsByChannelIdRequest)
       returns (QueryRateLimitsByChannelIdResponse) {
     option (google.api.http).get =
-        "/Stride-Labs/ibc-rate-limiting/ratelimit/ratelimits/{channel_id}";
+        "/int3face/ibcratelimit/v1/ratelimits/{channel_id}";
   }
 
   // Queries all blacklisted denoms
   rpc AllBlacklistedDenoms(QueryAllBlacklistedDenomsRequest)
       returns (QueryAllBlacklistedDenomsResponse) {
     option (google.api.http).get =
-        "/Stride-Labs/ibc-rate-limiting/ratelimit/blacklisted_denoms";
+        "/int3face/ibcratelimit/v1/blacklisted_denoms";
   }
 
   // Queries all whitelisted address pairs
   rpc AllWhitelistedAddresses(QueryAllWhitelistedAddressesRequest)
       returns (QueryAllWhitelistedAddressesResponse) {
     option (google.api.http).get =
-        "/Stride-Labs/ibc-rate-limiting/ratelimit/whitelisted_addresses";
+        "/int3face/ibcratelimit/v1/whitelisted_addresses";
   }
 }
 

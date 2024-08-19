@@ -1,15 +1,13 @@
 package apptesting
 
 import (
-	abci "github.com/cometbft/cometbft/abci/types"
+	upgradetypes "cosmossdk.io/x/upgrade/types"
 	"github.com/cometbft/cometbft/crypto/ed25519"
-	tmtypesproto "github.com/cometbft/cometbft/proto/tendermint/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
 	"github.com/stretchr/testify/suite"
 
-	app "github.com/Stride-Labs/ibc-rate-limiting/testing/simapp"
+	app "github.com/Int3facechain/ibc-rate-limiting/testing/simapp"
 )
 
 var (
@@ -25,10 +23,9 @@ type AppTestHelper struct {
 	Ctx         sdk.Context
 }
 
-// AppTestHelper Constructor
 func (s *AppTestHelper) Setup() {
 	s.App = app.InitTestingApp()
-	s.Ctx = s.App.BaseApp.NewContext(false, tmtypesproto.Header{Height: 1, ChainID: TestChainId})
+	s.Ctx = s.App.BaseApp.NewContext(false)
 	s.QueryHelper = &baseapp.QueryServiceTestHelper{
 		GRPCQueryRouter: s.App.GRPCQueryRouter(),
 		Ctx:             s.Ctx,
@@ -36,7 +33,7 @@ func (s *AppTestHelper) Setup() {
 	s.TestAccs = CreateRandomAccounts(3)
 }
 
-// Generate random account addresss
+// CreateRandomAccounts Generate random account addresses
 func CreateRandomAccounts(numAccts int) []sdk.AccAddress {
 	testAddrs := make([]sdk.AccAddress, numAccts)
 	for i := 0; i < numAccts; i++ {
@@ -47,8 +44,8 @@ func CreateRandomAccounts(numAccts int) []sdk.AccAddress {
 	return testAddrs
 }
 
-// Helper function to confirm the upgrade block processes without error
-func (s *AppTestHelper) ConfirmUpgradeSucceededs(upgradeName string, upgradeHeight int64) {
+// ConfirmUpgradeSucceeds Helper function to confirm the upgrade block processes without error
+func (s *AppTestHelper) ConfirmUpgradeSucceeds(upgradeName string, upgradeHeight int64) {
 	s.Ctx = s.Ctx.WithBlockHeight(upgradeHeight - 1)
 	plan := upgradetypes.Plan{
 		Name:   upgradeName,
@@ -57,13 +54,12 @@ func (s *AppTestHelper) ConfirmUpgradeSucceededs(upgradeName string, upgradeHeig
 
 	err := s.App.UpgradeKeeper.ScheduleUpgrade(s.Ctx, plan)
 	s.Require().NoError(err)
-	_, exists := s.App.UpgradeKeeper.GetUpgradePlan(s.Ctx)
-	s.Require().True(exists)
+	_, err = s.App.UpgradeKeeper.GetUpgradePlan(s.Ctx)
+	s.Require().NoError(err)
 
 	s.Ctx = s.Ctx.WithBlockHeight(upgradeHeight)
 	s.Require().NotPanics(func() {
-		beginBlockRequest := abci.RequestBeginBlock{}
-		s.App.BeginBlocker(s.Ctx, beginBlockRequest)
+		s.App.BeginBlocker(s.Ctx)
 	})
 }
 

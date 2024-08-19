@@ -4,7 +4,7 @@ import (
 	errorsmod "cosmossdk.io/errors"
 )
 
-// x/ratelimit module sentinel errors
+// x/ibcratelimit module sentinel errors
 var (
 	ErrRateLimitAlreadyExists = errorsmod.Register(ModuleName, 1,
 		"ratelimit key duplicated")

@@ -5,7 +5,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/Stride-Labs/ibc-rate-limiting/ratelimit/types"
+	"github.com/Int3facechain/ibc-rate-limiting/ratelimit/types"
 )
 
 // InitGenesis initializes the capability module's state from a provided genesis

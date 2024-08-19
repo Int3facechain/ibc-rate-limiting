@@ -6,7 +6,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-// Before each hour epoch, check if any of the rate limits have expired,
+// BeginBlocker Before each hour epoch, check if any of the rate limits have expired,
 // and reset them if they have
 func (k Keeper) BeginBlocker(ctx sdk.Context) {
 	if epochStarting, epochNumber := k.CheckHourEpochStarting(ctx); epochStarting {

@@ -6,18 +6,19 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
-	transfertypes "github.com/cosmos/ibc-go/v7/modules/apps/transfer/types"
-	channeltypes "github.com/cosmos/ibc-go/v7/modules/core/04-channel/types"
+	transfertypes "github.com/cosmos/ibc-go/v8/modules/apps/transfer/types"
+	channeltypes "github.com/cosmos/ibc-go/v8/modules/core/04-channel/types"
 
-	"github.com/Stride-Labs/ibc-rate-limiting/ratelimit/keeper"
-	"github.com/Stride-Labs/ibc-rate-limiting/ratelimit/types"
 	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
+
+	"github.com/Int3facechain/ibc-rate-limiting/ratelimit/keeper"
+	"github.com/Int3facechain/ibc-rate-limiting/ratelimit/types"
 )
 
 var (
 	authority = authtypes.NewModuleAddress(govtypes.ModuleName).String()
 
-	addRateLimitMsg = types.MsgAddRateLimit{
+	addRateLimitMsg = types.MsgAddIBCRateLimit{
 		Authority:      authority,
 		Denom:          "denom",
 		ChannelId:      "channel-0",
@@ -26,7 +27,7 @@ var (
 		DurationHours:  30,
 	}
 
-	updateRateLimitMsg = types.MsgUpdateRateLimit{
+	updateRateLimitMsg = types.MsgUpdateIBCRateLimit{
 		Authority:      authority,
 		Denom:          "denom",
 		ChannelId:      "channel-0",
@@ -35,13 +36,13 @@ var (
 		DurationHours:  40,
 	}
 
-	removeRateLimitMsg = types.MsgRemoveRateLimit{
+	removeRateLimitMsg = types.MsgRemoveIBCRateLimit{
 		Authority: authority,
 		Denom:     "denom",
 		ChannelId: "channel-0",
 	}
 
-	resetRateLimitMsg = types.MsgResetRateLimit{
+	resetRateLimitMsg = types.MsgResetIBCRateLimit{
 		Authority: authority,
 		Denom:     "denom",
 		ChannelId: "channel-0",
@@ -62,7 +63,7 @@ func (s *KeeperTestSuite) createChannelValue(denom string, channelValue sdkmath.
 // Helper function to add a rate limit with an optional error expectation
 func (s *KeeperTestSuite) addRateLimit(expectedErr *errorsmod.Error) {
 	msgServer := keeper.NewMsgServerImpl(s.App.RatelimitKeeper)
-	_, actualErr := msgServer.AddRateLimit(sdk.WrapSDKContext(s.Ctx), &addRateLimitMsg)
+	_, actualErr := msgServer.AddIBCRateLimit(sdk.WrapSDKContext(s.Ctx), &addRateLimitMsg)
 
 	// If it should have been added successfully, confirm no error
 	// and confirm the rate limit was created
@@ -123,14 +124,14 @@ func (s *KeeperTestSuite) TestMsgServer_UpdateRateLimit() {
 	s.createChannelValue(denom, channelValue)
 
 	// Attempt to update a rate limit that does not exist
-	_, err := msgServer.UpdateRateLimit(s.Ctx, &updateRateLimitMsg)
+	_, err := msgServer.UpdateIBCRateLimit(s.Ctx, &updateRateLimitMsg)
 	s.Require().Equal(err, types.ErrRateLimitNotFound)
 
 	// Add a rate limit successfully
 	s.addRateLimitSuccessful()
 
 	// Update the rate limit successfully
-	_, err = msgServer.UpdateRateLimit(s.Ctx, &updateRateLimitMsg)
+	_, err = msgServer.UpdateIBCRateLimit(s.Ctx, &updateRateLimitMsg)
 	s.Require().NoError(err)
 
 	// Check ratelimit quota is updated correctly
@@ -154,14 +155,14 @@ func (s *KeeperTestSuite) TestMsgServer_RemoveRateLimit() {
 	s.createChannelValue(denom, channelValue)
 
 	// Attempt to remove a rate limit that does not exist
-	_, err := msgServer.RemoveRateLimit(s.Ctx, &removeRateLimitMsg)
+	_, err := msgServer.RemoveIBCRateLimit(s.Ctx, &removeRateLimitMsg)
 	s.Require().Equal(err, types.ErrRateLimitNotFound)
 
 	// Add a rate limit successfully
 	s.addRateLimitSuccessful()
 
 	// Remove the rate limit successfully
-	_, err = msgServer.RemoveRateLimit(s.Ctx, &removeRateLimitMsg)
+	_, err = msgServer.RemoveIBCRateLimit(s.Ctx, &removeRateLimitMsg)
 	s.Require().NoError(err)
 
 	// Confirm it was removed
@@ -180,14 +181,14 @@ func (s *KeeperTestSuite) TestMsgServer_ResetRateLimit() {
 	s.createChannelValue(denom, channelValue)
 
 	// Attempt to reset a rate limit that does not exist
-	_, err := msgServer.ResetRateLimit(s.Ctx, &resetRateLimitMsg)
+	_, err := msgServer.ResetIBCRateLimit(s.Ctx, &resetRateLimitMsg)
 	s.Require().Equal(err, types.ErrRateLimitNotFound)
 
 	// Add a rate limit successfully
 	s.addRateLimitSuccessful()
 
 	// Reset the rate limit successfully
-	_, err = msgServer.ResetRateLimit(s.Ctx, &resetRateLimitMsg)
+	_, err = msgServer.ResetIBCRateLimit(s.Ctx, &resetRateLimitMsg)
 	s.Require().NoError(err)
 
 	// Check ratelimit quota is flow correctly

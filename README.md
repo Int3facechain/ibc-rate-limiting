@@ -2,7 +2,7 @@
 
 ## Overview
 
-This `ratelimit` module is a native golang implementation, inspired by Osmosis's CosmWasm [`ibc-rate-limit`](https://github.com/osmosis-labs/osmosis/tree/main/x/ibc-rate-limit) module. The module is meant as a safety control in the event of a bug, attack, or economic failure of an external zone. It prevents massive inflows or outflows of IBC tokens in a short time frame. See [here](https://github.com/osmosis-labs/osmosis/tree/main/x/ibc-rate-limit#motivation) for an excellent summary by the Osmosis team on the motivation for rate limiting.
+This `ibcratelimit` module is a native golang implementation, inspired by Osmosis's CosmWasm [`ibc-rate-limit`](https://github.com/osmosis-labs/osmosis/tree/main/x/ibc-rate-limit) module. The module is meant as a safety control in the event of a bug, attack, or economic failure of an external zone. It prevents massive inflows or outflows of IBC tokens in a short time frame. See [here](https://github.com/osmosis-labs/osmosis/tree/main/x/ibc-rate-limit#motivation) for an excellent summary by the Osmosis team on the motivation for rate limiting.
 
 Each rate limit is applied at a ChannelID + Denom granularity and is evaluated in evenly spaced fixed windows. For instance, a rate limit might be specified on `uosmo` (denominated as `ibc/D24B4564BCD51D3D02D9987D92571EAC5915676A9BD6D9B0C1D0254CB8A5EA34` on Stride), on the Stride <-> Osmosis transfer channel (`channel-5`), with a 24 hour window.
 
@@ -20,9 +20,9 @@ To add the rate limit module, wire it up in `app.go` in line with the following 
 
 // Import the rate limit module
 import (
-  "github.com/Stride-Labs/ibc-rate-limiting/v1/ratelimit"
-  ratelimitkeeper "github.com/Stride-Labs/ibc-rate-limiting/v1/ratelimit/keeper"
-  ratelimittypes "github.com/Stride-Labs/ibc-rate-limiting/v1/ratelimit/types"
+  "github.com/Int3facechain/ibc-rate-limiting/v1/ratelimit"
+  ratelimitkeeper "github.com/Int3facechain/ibc-rate-limiting/v1/ratelimit/keeper"
+  ratelimittypes "github.com/Int3facechain/ibc-rate-limiting/v1/ratelimit/types"
 )
 
 ...
@@ -362,22 +362,22 @@ RemoveRateLimit()
 ```go
 // Queries all rate limits
 //   CLI:
-//      binaryd q ratelimit list-rate-limits
+//      binaryd q ibcratelimit list
 //   API:
-//      /Stride-Labs/ibc-rate-limiting/ratelimit/ratelimits
+//      /int3face/ibcratelimit/v1/ratelimits
 QueryRateLimits()
 
 // Queries a specific rate limit given a ChannelID and Denom
 //   CLI:
-//      binaryd q ratelimit rate-limit [denom] [channel-id]
+//      binaryd q ibcratelimit get [denom] [channel-id]
 //   API:
-//      /Stride-Labs/ibc-rate-limiting/ratelimit/ratelimit/{denom}/{channel_id}
+//      /int3face/ibcratelimit/v1/ratelimit/{denom}/{channel_id}
 QueryRateLimit(denom string, channelId string)
 
 // Queries all rate limits associated with a given host chain
 //   CLI:
-//      binaryd q ratelimit rate-limits-by-chain [chain-id]
+//      binaryd q ibcratelimit list-by-chain [chain-id]
 //   API:
-//      /Stride-Labs/ibc-rate-limiting/ratelimit/ratelimits/{chain_id}
+//      /int3face/ibcratelimit/v1/ratelimits/{chain_id}
 QueryRateLimitsByChainId(chainId string)
 ```

@@ -1,21 +1,23 @@
 package types
 
 import (
+	"context"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	capabilitytypes "github.com/cosmos/cosmos-sdk/x/capability/types"
-	clienttypes "github.com/cosmos/ibc-go/v7/modules/core/02-client/types"
-	channeltypes "github.com/cosmos/ibc-go/v7/modules/core/04-channel/types"
-	ibcexported "github.com/cosmos/ibc-go/v7/modules/core/exported"
+	capabilitytypes "github.com/cosmos/ibc-go/modules/capability/types"
+	clienttypes "github.com/cosmos/ibc-go/v8/modules/core/02-client/types"
+	channeltypes "github.com/cosmos/ibc-go/v8/modules/core/04-channel/types"
+	ibcexported "github.com/cosmos/ibc-go/v8/modules/core/exported"
 )
 
 // BankKeeper defines the banking contract that must be fulfilled when
-// creating a x/ratelimit keeper.
+// creating x/ibcratelimit keeper.
 type BankKeeper interface {
-	GetSupply(ctx sdk.Context, denom string) sdk.Coin
+	GetSupply(ctx context.Context, denom string) sdk.Coin
 }
 
 // ChannelKeeper defines the channel contract that must be fulfilled when
-// creating a x/ratelimit keeper.
+// creating x/ibcratelimit keeper.
 type ChannelKeeper interface {
 	GetChannel(ctx sdk.Context, portID string, channelID string) (channeltypes.Channel, bool)
 	GetChannelClientState(ctx sdk.Context, portID string, channelID string) (string, ibcexported.ClientState, error)

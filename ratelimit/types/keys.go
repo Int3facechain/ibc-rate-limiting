@@ -3,10 +3,10 @@ package types
 import "encoding/binary"
 
 const (
-	ModuleName = "ratelimit"
+	ModuleName = "ibcratelimit"
 
 	// StoreKey defines the primary module store key
-	StoreKey = ModuleName
+	StoreKey = "rate-limit-ibc"
 
 	// RouterKey is the message route for slashing
 	RouterKey = ModuleName
@@ -30,12 +30,12 @@ var (
 	PendingSendPacketChannelLength int = 16
 )
 
-// Get the rate limit byte key built from the denom and channelId
+// GetRateLimitItemKey Get the rate limit byte key built from the denom and channelId
 func GetRateLimitItemKey(denom string, channelId string) []byte {
 	return append(KeyPrefix(denom), KeyPrefix(channelId)...)
 }
 
-// Get the pending send packet key from the channel ID and sequence number
+// GetPendingSendPacketKey Get the pending send packet key from the channel ID and sequence number
 // The channel ID must be fixed length to allow for extracting the underlying
 // values from a key
 func GetPendingSendPacketKey(channelId string, sequenceNumber uint64) []byte {
@@ -48,7 +48,7 @@ func GetPendingSendPacketKey(channelId string, sequenceNumber uint64) []byte {
 	return append(channelIdBz, sequenceNumberBz...)
 }
 
-// Get the whitelist path key from a sender and receiver address
+// GetAddressWhitelistKey Get the whitelist path key from a sender and receiver address
 func GetAddressWhitelistKey(sender, receiver string) []byte {
 	return append(KeyPrefix(sender), KeyPrefix(receiver)...)
 }
