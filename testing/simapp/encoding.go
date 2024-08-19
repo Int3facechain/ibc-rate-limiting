@@ -1,7 +1,7 @@
 package simapp
 
 import (
-	appparams "github.com/Stride-Labs/ibc-rate-limiting/testing/simapp/params"
+	appparams "github.com/Int3facechain/ibc-rate-limiting/testing/simapp/params"
 
 	"github.com/cosmos/cosmos-sdk/std"
 )

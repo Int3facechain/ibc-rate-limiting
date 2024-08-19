@@ -1,6 +1,6 @@
 package keeper_test
 
-import "github.com/Stride-Labs/ibc-rate-limiting/ratelimit/types"
+import "github.com/Int3facechain/ibc-rate-limiting/ratelimit/types"
 
 func (s *KeeperTestSuite) TestAddressWhitelist() {
 	// Store addresses in whitelist

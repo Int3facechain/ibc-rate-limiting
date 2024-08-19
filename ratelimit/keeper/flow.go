@@ -3,9 +3,10 @@ package keeper
 import (
 	errorsmod "cosmossdk.io/errors"
 	sdkmath "cosmossdk.io/math"
-	"github.com/Stride-Labs/ibc-rate-limiting/ratelimit/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+
+	"github.com/Int3facechain/ibc-rate-limiting/ratelimit/types"
 )
 
 // The total value on a given path (aka, the denominator in the percentage calculation)

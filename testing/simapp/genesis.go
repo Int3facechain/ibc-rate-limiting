@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 )
 
+// GenesisState
 // The genesis state of the blockchain is represented here as a map of raw json
 // messages key'd by a identifier string.
 // The identifier is used to determine which module genesis information belongs

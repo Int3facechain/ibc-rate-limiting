@@ -11,7 +11,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/version"
 
-	"github.com/Stride-Labs/ibc-rate-limiting/ratelimit/types"
+	"github.com/Int3facechain/ibc-rate-limiting/ratelimit/types"
 )
 
 const (
@@ -40,19 +40,18 @@ func GetQueryCmd() *cobra.Command {
 // GetCmdQueryRateLimit implements a command to query rate limits by channel-id and denom
 func GetCmdQueryRateLimit() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "rate-limit [channel-id]",
+		Use:   "get [channel-id] [denom]",
 		Short: "Query rate limits by channel-id and denom",
 		Long: strings.TrimSpace(
 			fmt.Sprintf(`Query rate limits by channel-id and denom.
 
 Example:
-  $ %s query %s rate-limit [channel-id]
-  $ %s query %s rate-limit [channel-id] --denom=[denom]
+  $ %s query %s get [channel-id] [denom]
 `,
-				version.AppName, types.ModuleName, version.AppName, types.ModuleName,
+				version.AppName, types.ModuleName,
 			),
 		),
-		Args: cobra.ExactArgs(1),
+		Args: cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			channelId := args[0]
 			denom, err := cmd.Flags().GetString(FlagDenom)
@@ -63,21 +62,9 @@ Example:
 			clientCtx := client.GetClientContextFromCmd(cmd)
 			queryClient := types.NewQueryClient(clientCtx)
 
-			if denom == "" {
-				req := &types.QueryRateLimitsByChannelIdRequest{
-					ChannelId: channelId,
-				}
-				res, err := queryClient.RateLimitsByChannelId(context.Background(), req)
-				if err != nil {
-					return err
-				}
-
-				return clientCtx.PrintObjectLegacy(res.RateLimits)
-			}
-
 			req := &types.QueryRateLimitRequest{
-				Denom:     denom,
 				ChannelId: channelId,
+				Denom:     denom,
 			}
 			res, err := queryClient.RateLimit(context.Background(), req)
 
@@ -98,8 +85,8 @@ Example:
 // GetCmdQueryAllRateLimits return all available rate limits.
 func GetCmdQueryAllRateLimits() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "list-rate-limits",
-		Short: "Query all rate limits",
+		Use:   "list",
+		Short: "Query all ibc rate limits",
 		Args:  cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
@@ -124,8 +111,8 @@ func GetCmdQueryAllRateLimits() *cobra.Command {
 // and the specified ChainId
 func GetCmdQueryRateLimitsByChainId() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "rate-limits-by-chain [chain-id]",
-		Short: "Query all rate limits with the given ChainID",
+		Use:   "list-by-chain [chain-id]",
+		Short: "Query all ibc rate limits with the given ChainID",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			chainId := args[0]

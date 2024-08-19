@@ -4,8 +4,9 @@ import (
 	"strings"
 
 	sdkmath "cosmossdk.io/math"
-	"github.com/Stride-Labs/ibc-rate-limiting/ratelimit/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+
+	"github.com/Int3facechain/ibc-rate-limiting/ratelimit/types"
 )
 
 // If the rate limit is exceeded or the denom is blacklisted, we emit an event

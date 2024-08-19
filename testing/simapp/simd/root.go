@@ -5,12 +5,11 @@ import (
 	"io"
 	"os"
 
-	app "github.com/Stride-Labs/ibc-rate-limiting/testing/simapp"
-	appparams "github.com/Stride-Labs/ibc-rate-limiting/testing/simapp/params"
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 
-	rosettaCmd "cosmossdk.io/tools/rosetta/cmd"
+	app "github.com/Int3facechain/ibc-rate-limiting/testing/simapp"
+	appparams "github.com/Int3facechain/ibc-rate-limiting/testing/simapp/params"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/config"
@@ -28,10 +27,10 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/crisis"
 	genutilcli "github.com/cosmos/cosmos-sdk/x/genutil/client/cli"
 
-	dbm "github.com/cometbft/cometbft-db"
+	"cosmossdk.io/log"
 	tmcfg "github.com/cometbft/cometbft/config"
 	tmcli "github.com/cometbft/cometbft/libs/cli"
-	"github.com/cometbft/cometbft/libs/log"
+	dbm "github.com/cosmos/cosmos-db"
 )
 
 // NewRootCmd creates a new root command for simd. It is called once in the
@@ -106,21 +105,20 @@ func initRootCmd(rootCmd *cobra.Command, encodingConfig appparams.EncodingConfig
 	rootCmd.AddCommand(
 		genutilcli.InitCmd(app.ModuleBasics, app.DefaultNodeHome),
 		tmcli.NewCompletionCmd(rootCmd, true),
-		pruning.PruningCmd(ac.newApp),
+		pruning.Cmd(ac.newApp, app.DefaultNodeHome),
 	)
 
 	server.AddCommands(rootCmd, app.DefaultNodeHome, ac.newApp, ac.appExport, addModuleInitFlags)
 
 	// add keybase, auxiliary RPC, query, and tx child commands
 	rootCmd.AddCommand(
-		rpc.StatusCommand(),
+		server.StatusCommand(),
 		genesisCommand(encodingConfig),
 		queryCommand(),
 		txCommand(),
-		keys.Commands(app.DefaultNodeHome),
+		keys.Commands(),
 	)
-	// add rosetta
-	rootCmd.AddCommand(rosettaCmd.RosettaCommand(encodingConfig.InterfaceRegistry, encodingConfig.Marshaler))
+
 }
 
 func addModuleInitFlags(startCmd *cobra.Command) {
@@ -148,9 +146,9 @@ func queryCommand() *cobra.Command {
 	}
 
 	cmd.AddCommand(
-		authcmd.GetAccountCmd(),
+
 		rpc.ValidatorCommand(),
-		rpc.BlockCommand(),
+		server.QueryBlockCmd(),
 		authcmd.QueryTxsByEventsCmd(),
 		authcmd.QueryTxCmd(),
 	)
@@ -180,7 +178,6 @@ func txCommand() *cobra.Command {
 		authcmd.GetBroadcastCommand(),
 		authcmd.GetEncodeCommand(),
 		authcmd.GetDecodeCommand(),
-		authcmd.GetAuxToFeeCommand(),
 	)
 
 	app.ModuleBasics.AddTxCommands(cmd)

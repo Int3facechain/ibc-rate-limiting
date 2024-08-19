@@ -2,8 +2,8 @@ package keeper_test
 
 import (
 	sdkmath "cosmossdk.io/math"
-	"github.com/Stride-Labs/ibc-rate-limiting/ratelimit/keeper"
-	"github.com/Stride-Labs/ibc-rate-limiting/ratelimit/types"
+	"github.com/Int3facechain/ibc-rate-limiting/ratelimit/keeper"
+	"github.com/Int3facechain/ibc-rate-limiting/ratelimit/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
 )
